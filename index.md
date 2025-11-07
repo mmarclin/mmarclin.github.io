@@ -4,8 +4,6 @@ author_profile: true
 classes: wide
 ---
 
-## Education 
-
 Currently, I am a last year student at the engineering and management school [Ecole Centrale de Lille](https://centralelille.fr/), majoring in data science and AI. 
 
 I am deepening my knowledges on the domain of data : 
