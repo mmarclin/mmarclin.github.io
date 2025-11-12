@@ -15,13 +15,13 @@ toc_sticky: true
 
 ## Projects
 
-## Project: Île-de-France Accident Severity Prediction API
+#### Project: Île-de-France Accident Severity Prediction API
 
 This is an end-to-end data science project that builds a complete web application to predict road accident severity in the Île-de-France region.
 
 The final product is a **Dockerized Flask API** that serves a machine learning model through an interactive web interface. Users can click on a map of Paris, fill in details about an accident (like the time, weather, and vehicle type), and receive a real-time prediction for the probability of the outcome being **'Severe'** (Killed or Hospitalized) or **'Light'**.
 
-### Key Features
+##### Key Features
 
 * **Geospatial ML Model:** A `GradientBoostingClassifier` trained on 3 years of official French government (BAAC) data (2021-2023).
 * **Interactive Frontend:** A user-friendly HTML form with an integrated **Leaflet.js map**. Users can click the map, drag a marker, or use a street-level search to input coordinates.
@@ -35,11 +35,11 @@ The final product is a **Dockerized Flask API** that serves a machine learning m
         * `categories.json` (Application Config)
 * **Fully Containerized:** The entire application is packaged with a `Dockerfile` for easy and reproducible deployment on any server.
 
-### The Data Science Process
+##### The Data Science Process
 
 This project was a deep, iterative dive into the full data science lifecycle.
 
-#### 1. Data Cleaning & Feature Engineering
+###### 1. Data Cleaning & Feature Engineering
 We started by ingesting over 12 separate `csv` files (4 files/year for 3 years).
 * **Merging:** All `caract`, `lieux`, `usagers`, and `vehicules` files were merged into a single master dataset.
 * **Filtering:** To create a focused model, we made two key decisions:
@@ -48,13 +48,13 @@ We started by ingesting over 12 separate `csv` files (4 files/year for 3 years).
 * **Cleaning:** All 33 of our final features were cleaned. "Not Specified" (`-1`) values were converted to a dedicated "Unknown" category, and data types (e.g., `lat`/`long` from strings to floats) were corrected.
 * **Target Variable:** We binned the 4 official `grav` levels into a 2-class problem for our model: **'Severe'** (Killed, Hospitalized) and **'Light'** (Unharmed, Lightly Injured).
 
-#### 2. Modeling & Iteration
+###### 2. Modeling & Iteration
 The biggest challenge was the **extreme class imbalance** (approx. 18:1 "Light" to "Severe" cases).
 * **Bake-Off 1 (Balancing Method):** We first compared **undersampling** (training on a 1:1 ratio) vs. **class weighting** (training on the full, unbalanced dataset). We proved that `class_weight='balanced'` produced a more robust model that learned from all the data.
 * **Bake-Off 2 (Model Type):** We then ran a "bake-off" between `LogisticRegression`, `RandomForest`, and `GradientBoostingClassifier`. All models converged to a similar "safety-first" performance (high recall, low precision). We selected `GradientBoostingClassifier` as our champion.
 * **Error Analysis:** We plotted our model's "False Positives" on a heatmap. This clearly showed our model was "crying wolf" on the Périphérique, confirming that we need more contextual features to improve precision.
 
-#### 3. Application & Deployment
+###### 3. Application & Deployment
 We built the complete web application around the trained model.
 1.  **Backend:** Wrote the `app.py` script with two endpoints:
     * `/`: Serves the `index.html` file and passes it the `categories.json` data.
@@ -62,6 +62,6 @@ We built the complete web application around the trained model.
 2.  **Frontend:** Wrote the `index.html` and `app.js` files to create the full user experience, including the Leaflet.js map with two-way data binding (map clicks update text boxes, and text box inputs update the map).
 3.  **Deployment:** Wrote the `Dockerfile` and `requirements.txt` to containerize the entire application.
 
-### Future Improvements
+#### Future Improvements
 * **Improve Precision:** The model's key weakness is its low precision (many false alarms). The next step is to implement advanced **feature engineering** (e.g., `is_motorcycle_at_night`, `Age_squared`) to give the model the context it needs to stop "crying wolf" on the Périphérique.
 * **External API Integration:** Use an external geocoding API (like OpenStreetMap) to auto-populate road features (e.g., `vma`, `surf`) based on the user's map click, making the form even easier to use.
