@@ -25,10 +25,9 @@ The final product is a **Dockerized Flask API** that serves a machine learning m
 
 * **Technology Stack:** Python, Flask, Docker, Pandas, Scikit-learn, Leaflet.js
 * **Key Techniques:**
-    * Data Engineering: Merged and cleaned 12+ raw CSV files.
-    * Class Imbalance: Handled the extreme 18:1 class imbalance using weighted-class training.
-    * Geospatial Analysis: Used heatmaps and error analysis to identify False Positive hotspots (e.g., the Périphérique).
-    * Application Design: Built a dynamic, maintainable app by separating concerns (Python backend, `categories.json` config, and a dynamic HTML/JS frontend).
+    * Data Engineering : merging and cleaning files.
+    * Geospatial Analysis of accidents
+    * Web development using Flask
 
 #### Project: Exoplanet identification project
 
